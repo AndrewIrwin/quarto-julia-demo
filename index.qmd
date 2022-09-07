@@ -1,0 +1,115 @@
+---
+title: "Quarto Basics"
+bibliography: references.bib
+csl: nature.csl
+# csl: journal-of-geophysical-research-oceans.csl
+format:
+  html:
+    code-fold: true
+jupyter: julia-1.7
+---
+
+
+# Introduction to Quarto and Julia
+
+## What is Quarto
+
+
+## What will I show?
+
+* Installation
+  * Working with VS Code, or Rstudio
+* Simple document: markdown + julia -> HTML
+* Slide show
+* Website
+* Book
+* Publishing to github
+
+
+## Getting started with Quarto
+
+* Download commandline tools and support packages for your editor (VS Code, Rstudio, etc) https://quarto.org/docs/get-started/
+
+* Create a document (untitled.qmd). Write some markdown. Enclose julia code in fenced blocks starting and ending with 3 backticks. Indicate the language being used in curly braces on the opening line of the code block.
+
+```{julia}
+#| echo-somethgin: true
+sum(1:100)
+```
+
+* Use option-P (command pallette) render: quarto
+  * What happens? A Julia repl is started. A document is rendered. The repl stays open.
+  * Recommend you install Revise.jl 
+
+
+```{julia}
+#| label: fig-parametric
+#| fig-cap: "Parametric Plots"
+
+using Plots
+
+plot(sin, 
+     x->sin(2x), 
+     0, 
+     2π, 
+     leg=false, 
+     fill=(0,:lavender))
+```
+
+Naturally you can refer to a figure by number: @fig-parametric.
+
+Two figures in one figure block.
+
+```{julia}
+#| label: fig-plots
+#| fig-cap: Multiple Plots
+#| fig-subcap:
+#|   - "Plot 1"
+#|   - "Plot 2"
+#| layout-ncol: 2
+
+using Plots
+display(plot(sin, x -> sin(2x), 0, 2))
+display(plot(x -> sin(4x), y -> sin(5y), 0, 2))
+```
+
+
+## Command line usage
+
+The quarto utility supports creating new documents, rendering to a variety of formats, and publishing them.
+
+```
+quarto check
+quarto create-project mysite --type website
+quarto preview document.qmd
+quarto render document.qmd # defaults to html
+quarto render document.qmd --to pdf
+quarto render document.qmd --to docx
+quarto render document.ipynb
+quarto publish gh-pages
+```
+
+For help,
+
+```
+quarto --help
+quarto create-project --help
+quarto render --help
+```
+
+A citation to a paper Mick talked about at the September 7 meeting [@follows2001meteorological].
+
+## Documentation
+
+
+
+## References
+
+Bibliography style files are at 
+
+* https://www.zotero.org/styles
+* https://github.com/citation-style-language/styles
+
+
+::: {#refs}
+:::
